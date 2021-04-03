@@ -1,17 +1,27 @@
-import React, {useState} from "react";
+import React from "react";
 import * as tf from "@tensorflow/tfjs";
 
-export default function Ai(){
+export default class Ai extends React.Component{
 
-  const [model, setModel] = useState(null);
-  const loadmodel = async (p) => {
-    console.log("here")
-    this.model = await tf.loadLayersModel("/tfjs_model/model.json");
-    console.log(this.model)
+  constructor(props){
+    super(props);
+    this.state={
+      model: null,
+    };
+    this.loadmodel();
   }
 
-  loadmodel();
-  return (
+  loadmodel = async (p) => {
+    console.log("here");
+    this.setState({"model": await tf.loadLayersModel("/tfjs_model/model.json")});
+    console.log(this.state.model)
+  }
+
+  render() {
+    return (
     <h1>Loaded</h1>
-  );
+    );
+  }
+
+
 }
